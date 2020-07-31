@@ -15,13 +15,14 @@ const handleErrors = (err, request, response, next) => {
     status = 400
 
   if (status !== 404 || !isDuplicated(message)) {
-    logger.error('AppController', message)
+    console.log('AppController', message)
   }
 
   response
     .status(status)
     .json([
       {
+        status,
         message: err.message,
         logref: err.logref,
         error_description: err.error_description,
