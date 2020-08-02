@@ -12,7 +12,8 @@ const PedidoSchema = new Schema({
   endereco: String,
   uf: String,
   municipio: String,
-  cep: String
+  cep: String,
+  sla: String,
 }, { versionKey: false })
 
 module.exports = mongoose.model('Pedidos', PedidoSchema)

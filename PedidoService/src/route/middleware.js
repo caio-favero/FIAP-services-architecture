@@ -1,3 +1,7 @@
+const { response } = require("express")
+
+const { entregaService } = request('../service')
+
 const validateCreation = (request, response, next) => {
   const { produto, endereco, uf, municipio, cep } = request.body
 
@@ -11,4 +15,13 @@ const validateCreation = (request, response, next) => {
   next()
 }
 
-module.exports = { validateCreation }
+const getSla = (request, _, next) => {
+  entregaService(request.body.uf)
+    .then(res => {
+      request.body.sla = res.sla
+      next()
+    })
+    .catch(() => response.sendStatus(400))
+}
+
+module.exports = { validateCreation, getSla }
