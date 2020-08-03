@@ -23,29 +23,32 @@ services:
       dockerfile: Dockerfile
     environment:
       PORT: 8000
+      RABBIT: "rabbitmq"
+      ENTREGA_HOST: "entrega"
+      ENTREGA_PORT: 8002
       DB_HOST: "mongo-pedido"
       DB_PORT: 27017
       DB_NAME: pedido
     links:
       - mongo-pedido
-      # - rabbitmq
+      - rabbitmq
     depends_on:
       - mongo-pedido
-      # - rabbitmq
+      - rabbitmq
     ports:
       - 8001:8000
 
-  # rabbitmq:
-  #   image: rabbitmq
-  #   container_name: "rabbitmq"
-  #   ports:
-  #     - 5672:5672
-  #     - 15672:15672
-  #   healthcheck:
-  #     test: ["CMD", "curl", "-f", "http://localhost:15672/api/"]
-  #     interval: 30s
-  #     timeout: 10s
-  #     retries: 5
+  rabbitmq:
+    image: rabbitmq
+    container_name: "rabbitmq"
+    ports:
+      - 5672:5672
+      - 15672:15672
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:15672/api/"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
   entrega:
     container_name: "entrega"
@@ -53,14 +56,17 @@ services:
       context: ./EntregaService
     environment:
       PORT: 8000
+      RABBIT: "rabbitmq"
+      PEDIDO_HOST: "pedido"
+      PEDIDO_PORT: 8001
       DB_HOST: "mongo-entrega"
       DB_PORT: 27017
       DB_NAME: entrega
     links:
       - mongo-entrega
-      # - rabbitmq
+      - rabbitmq
     depends_on:
       - mongo-entrega
-      # - rabbitmq
+      - rabbitmq
     ports:
       - 8002:8000
