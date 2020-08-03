@@ -8,8 +8,6 @@ services:
     command: mongod --port 27017
     ports:
       - 27021:27017
-    volumes:
-      - mongo-entrega-data:./data/entrega
 
   mongo-pedido:
     image: mongo
@@ -17,8 +15,6 @@ services:
     command: mongod --port 27017
     ports:
       - "27020:27017" 
-    volumes:
-      - mongo-pedido-data:./data/pedido
 
   pedido:
     container_name: "pedido"
@@ -32,24 +28,24 @@ services:
       DB_NAME: pedido
     links:
       - mongo-pedido
-      - rabbitmq
+      # - rabbitmq
     depends_on:
       - mongo-pedido
-      - rabbitmq
+      # - rabbitmq
     ports:
       - 8001:8000
 
-  rabbitmq:
-    image: rabbitmq
-    container_name: "rabbitmq"
-    ports:
-      - 5672:5672
-      - 15672:15672
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:15672/api/"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
+  # rabbitmq:
+  #   image: rabbitmq
+  #   container_name: "rabbitmq"
+  #   ports:
+  #     - 5672:5672
+  #     - 15672:15672
+  #   healthcheck:
+  #     test: ["CMD", "curl", "-f", "http://localhost:15672/api/"]
+  #     interval: 30s
+  #     timeout: 10s
+  #     retries: 5
 
   entrega:
     container_name: "entrega"
@@ -62,15 +58,9 @@ services:
       DB_NAME: entrega
     links:
       - mongo-entrega
-      - rabbitmq
+      # - rabbitmq
     depends_on:
       - mongo-entrega
-      - rabbitmq
+      # - rabbitmq
     ports:
       - 8002:8000
-
-  volumes:
-    mongo-pedido-data:
-      driver: local
-    mongo-entrega-data:
-      driver: local

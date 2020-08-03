@@ -1,6 +1,4 @@
-const { response } = require("express")
-
-const { entregaService } = request('../service')
+const { entregaService } = require('../service')
 
 const validateCreation = (request, response, next) => {
   const { produto, endereco, uf, municipio, cep } = request.body
@@ -15,7 +13,7 @@ const validateCreation = (request, response, next) => {
   next()
 }
 
-const getSla = (request, _, next) => {
+const getSla = (request, response, next) => {
   entregaService(request.body.uf)
     .then(res => {
       request.body.sla = res.sla
