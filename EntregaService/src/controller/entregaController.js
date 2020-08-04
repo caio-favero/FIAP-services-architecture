@@ -1,4 +1,5 @@
 const model = require('../model/entregaModel')
+const { alertOrder } = require('../lib/slaChange')
 
 const entregaController = {
 
@@ -9,7 +10,12 @@ const entregaController = {
   },
 
   alterarPrazoEntrega(request, response, next) {
-    model.findByIdAndUpdate({ uf: request.params.uf }, { $set: { sla: request.params.prazoEntrega } })
+    model.findOneAndUpdate(
+      { uf: request.params.uf },
+      { $set: { sla: request.params.prazoEntrega, uf: request.params.uf } },
+      { upsert: true }
+    )
+      .then(res => alertOrder(res))
       .then(res => response.json(res))
       .catch(next)
   },
