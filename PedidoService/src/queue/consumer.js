@@ -1,5 +1,5 @@
 const queueName = 'slaUpdate'
-const open = require('amqplib').connect('amqp://localhost')
+const open = require('amqplib').connect(`amqp://rabbitmq:5672`)
 const model = require('../model/pedidoModel')
 const moment = require('moment')
 

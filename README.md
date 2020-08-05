@@ -1,3 +1,5 @@
+
+
 ### Pedidos
 
 GET http://localhost:8001
@@ -32,3 +34,6 @@ GET http://localhost:8002/test
 GET http://localhost:8002/consultarPrazoEntrega/:uf
 
 POST http://localhost:8002/alterarPrazoEntrega/:uf/:prazoEntrega
+
+
+https://github.com/caio-favero/services-architecture
