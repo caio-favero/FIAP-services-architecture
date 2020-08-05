@@ -1,10 +1,12 @@
-const app = require('express')()
-const bodyParser = require('body-parser')
-const PORT = process.env.PORT || 8002
+setTimeout(() => {
+  const app = require('express')()
+  const bodyParser = require('body-parser')
+  const PORT = process.env.PORT || 8002
 
-app.listen(PORT, () => console.log(`Server ativo na porta ${PORT}`))
+  app.listen(PORT, () => console.log(`Server ativo na porta ${PORT}`))
 
-require('./src/config/mongoose')
+  require('./src/config/mongoose')
 
-app.use(bodyParser.json())
-app.use(require('./src/route'))
+  app.use(bodyParser.json())
+  app.use(require('./src/route'))
+}, 10000)

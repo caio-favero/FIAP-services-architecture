@@ -2,12 +2,23 @@ version: "3"
 
 services:
 
+  rabbitmq:
+    image: rabbitmq
+    container_name: "rabbitmq"
+    ports:
+      - 5672:5672
+      - 15672:15672
+    networks:
+      - app-network
+  
   mongo-entrega:
     image: mongo
     container_name: "mongo-entrega"
     command: mongod --port 27017
     ports:
       - 27021:27017
+    networks:
+      - app-network  
 
   mongo-pedido:
     image: mongo
@@ -15,7 +26,9 @@ services:
     command: mongod --port 27017
     ports:
       - "27020:27017" 
-
+    networks:
+      - app-network
+  
   pedido:
     container_name: "pedidoService"
     build:
@@ -37,7 +50,9 @@ services:
       - rabbitmq
     ports:
       - 8001:8000
-
+    networks:
+      - app-network
+  
   entrega:
     container_name: "entregaService"
     build:
@@ -58,15 +73,9 @@ services:
       - rabbitmq
     ports:
       - 8002:8000
+    networks:
+      - app-network
 
-  rabbitmq:
-    image: rabbitmq
-    container_name: "rabbitmq"
-    ports:
-      - 5672:5672
-      - 15672:15672
-    # healthcheck:
-    #   test: ["CMD", "curl", "-f", "http://localhost:15672/api/"]
-    #   interval: 30s
-    #   timeout: 10s
-    #   retries: 5
+networks:
+  app-network:
+    driver: bridge
