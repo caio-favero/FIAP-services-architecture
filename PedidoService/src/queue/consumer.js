@@ -11,6 +11,7 @@ open
         return ch.consume(queueName, msg => {
           if (msg !== null) {
             const thisMessage = msg.content.toString()
+            console.log('consumed::slaUpdate', thisMessage)
 
             model.find({ status: { $ne: 'ENTREGUE' }, uf: thisMessage.uf })
               .then(res => {

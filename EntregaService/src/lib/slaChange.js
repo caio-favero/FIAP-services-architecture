@@ -5,11 +5,9 @@ const alertOrder = entrega => {
   open
     .then(conn => conn.createChannel())
     .then(ch => {
-      console.log(1, ch)
       return ch.assertQueue(queueName)
         .then(ok => {
-          console.log(2, ok)
-          ch.sendToQueue(queueName, Buffer.from(entrega))
+          ch.sendToQueue(queueName, Buffer.from(JSON.stringify(entrega)))
         })
     })
     .catch(console.warn)
