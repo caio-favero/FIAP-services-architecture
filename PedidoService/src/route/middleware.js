@@ -22,4 +22,10 @@ const getSla = (request, response, next) => {
     .catch(() => response.sendStatus(400))
 }
 
-module.exports = { validateCreation, getSla }
+const defineDelivery = (request, response, next) => {
+  request.body.dataEntrega = moment(new Date(), "DD-MM-YYYY").add(request.body.sla, 'days')
+
+  next()
+}
+
+module.exports = { validateCreation, getSla, defineDelivery }
