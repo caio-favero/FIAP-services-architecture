@@ -1,3 +1,18 @@
+## Tarefas
+
+- [x] GET para listar pedidos por UF
+
+- [x] GET para listar pedidos por id
+
+- [x] POST pra criação de pedidos
+
+- [x] GET para consultar prazo de entrega por UF
+
+- [x] POST para criar/editar SLA com base no UF
+
+- [x] GET em entregas quando criar um pedido
+
+- [x] Comunicação via fila entre APIs
 
 
 ### Pedidos
@@ -35,5 +50,6 @@ GET http://localhost:8002/consultarPrazoEntrega/:uf
 
 POST http://localhost:8002/alterarPrazoEntrega/:uf/:prazoEntrega
 
+### Repositório
 
 https://github.com/caio-favero/services-architecture
