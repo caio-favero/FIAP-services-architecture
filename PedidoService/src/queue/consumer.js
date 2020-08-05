@@ -1,6 +1,7 @@
 const queueName = 'slaUpdate'
 const open = require('amqplib').connect('amqp://localhost')
 const model = require('../model/pedidoModel')
+const moment = require('moment')
 
 open
   .then(conn => conn.createChannel())
