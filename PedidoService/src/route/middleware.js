@@ -23,7 +23,7 @@ const getSla = (request, response, next) => {
     .catch(() => response.sendStatus(400))
 }
 
-const defineDelivery = (request, response, next) => {
+const defineDelivery = (request, _, next) => {
   request.body.dataEntrega = moment(new Date(), "DD-MM-YYYY").add(request.body.sla, 'days')
 
   next()
