@@ -27,8 +27,6 @@ services:
       DB_PORT: 27017
       DB_NAME: pedido
       DB_HOST: "mongo-pedido"
-      PEDIDO_HOST: "pedidoService"
-      PEDIDO_PORT: 8000
       ENTREGA_HOST: "entregaService"
       ENTREGA_PORT: 8000
     links:
@@ -52,8 +50,6 @@ services:
       DB_HOST: "mongo-entrega"
       PEDIDO_HOST: "pedidoService"
       PEDIDO_PORT: 8000
-      ENTREGA_HOST: "entregaService"
-      ENTREGA_PORT: 8000
     links:
       - mongo-entrega
       - rabbitmq
@@ -67,10 +63,10 @@ services:
     image: rabbitmq
     container_name: "rabbitmq"
     ports:
-      - 5673:5672
-      - 15673:15672
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:15672/api/"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
+      - 5672:5672
+      - 15672:15672
+    # healthcheck:
+    #   test: ["CMD", "curl", "-f", "http://localhost:15672/api/"]
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 5

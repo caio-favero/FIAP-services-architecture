@@ -1,4 +1,4 @@
-const open = require('amqplib').connect(`amqp://${process.env.RABBIT}:5673`)
+const open = require('amqplib').connect(`amqp://rabbitmq:5672`)
 const queueName = 'slaUpdate'
 
 const alertOrder = entrega => {

@@ -1,6 +1,6 @@
 const router = require('express').Router()
 
-router.get('/', (_, response) => response.sendStatus(200))
-router.use('/entregas', require('./entrega'))
+router.get('/test', (_, response) => response.sendStatus(200))
+router.use('/', require('./entrega'))
 
 module.exports = router

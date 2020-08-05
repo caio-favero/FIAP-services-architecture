@@ -1,18 +1,20 @@
 const queueName = 'slaUpdate'
 const open = require('amqplib').connect('amqp://localhost')
+const model = require('../model/pedidoModel')
 
-// Consumer
 open
   .then(conn => conn.createChannel())
   .then(ch => {
-    console.log(1, ch)
     return ch.assertQueue(queueName).then(ok => {
-      console.log(2, ok)
       return ch.consume(queueName, msg => {
-        console.log(3, queueName)
-        console.log(3, msg)
         if (msg !== null) {
-          console.log(4, msg.content.toString())
+          const thisMessage = msg.content.toString()
+
+          model.updateMany(
+            { status: { $ne: 'ENTREGUE' }, uf: thisMessage.uf },
+            { sla: thisMessage.sla },
+            { new: true }
+          )
           ch.ack(msg)
         }
       })
